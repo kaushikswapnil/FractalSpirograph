@@ -31,7 +31,7 @@ void setup()
 
 void draw()
 {
-  background(0, 0, 50, 80);
+  background(0, 0, 50);
   stroke(255);
   noFill();
   
