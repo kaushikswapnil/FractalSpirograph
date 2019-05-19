@@ -67,7 +67,26 @@ class DrawerCircle
    {
      if (m_Parent != null)
      {
-       float radiusSum = m_Radius + m_Parent.m_Radius;
+       float radiusSum = 0;//m_Radius + m_Parent.m_Radius;
+       
+       switch (childCreationStrategy)
+      {
+        default:
+        case 0 :
+        radiusSum = m_Parent.m_Radius + m_Radius;
+        break;
+        
+        case 1:
+        radiusSum = m_Parent.m_Radius - m_Radius;
+        break;
+        
+        case 2:
+        if (m_Level % 2 == 0)
+          radiusSum = m_Parent.m_Radius + m_Radius;
+        else
+          radiusSum = m_Parent.m_Radius - m_Radius;
+        break;
+      }
      
        m_Position.x = m_Parent.m_Position.x + (radiusSum* cos(m_Angle));
        m_Position.y = m_Parent.m_Position.y + (radiusSum* sin(m_Angle));

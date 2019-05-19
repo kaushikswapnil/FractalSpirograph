@@ -12,11 +12,11 @@ DrawerCircle drawer;
 
 int hue = 50;
 
-int childCreationStrategy = 1; //0 for outwards, 1 for inwards, 2 for alternative
+int childCreationStrategy = 2; //0 for outwards, 1 for inwards, 2 for alternative
 
-boolean slideShowActive = false;
+boolean slideShowActive = true;
 int timeSinceLastSlide = 0;
-int timeBetweenSlideChange = 10000; //10 seconds
+int timeBetweenSlideChange = 5000; //in ms
 
 void setup()
 {
@@ -31,7 +31,7 @@ void setup()
 
 void draw()
 {
-  background(0);
+  background(0, 0, 50, 80);
   stroke(255);
   noFill();
   
@@ -73,20 +73,26 @@ void keyPressed()
 
 void Reset()
 {
-  slideShowActive = true;
+  if (!slideShowActive)
+  {
+    slideShowActive = true;
+  }
+    
   timeSinceLastSlide = millis();
   
-  numCircles = (int)random(2, 20);
+  numCircles = (int)random(3, 30);
   path = new ArrayList<PVector>();
   
   coreCircleRadius = random(125,225);
   
   radiusMultiplier = random(0.3, 0.6);
   
+  childCreationStrategy = (int)random(0,3);
+  
   do
   {
-    speedConstant = (int)random(-8, 8);
-  } while (speedConstant == 0 && speedConstant != 1 && speedConstant != -1);
+    speedConstant = (int)random(-10, 10);
+  } while (speedConstant >= -1 && speedConstant <= 1);
   
   hue = (int)random(0,256);
   
