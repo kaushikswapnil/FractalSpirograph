@@ -49,6 +49,11 @@ void draw()
   
   path.add(drawer.GetLeafCenter());
   
+  DrawPath();
+}
+
+void DrawPath()
+{
   stroke(hue, 255, 255);
   beginShape();
   for (PVector pos : path)
@@ -61,14 +66,20 @@ void draw()
 
 void keyPressed()
 {
- if(key == ' ')
- {
+  switch(key)
+  {
+   case ' ':
    isDebugModeOn = !isDebugModeOn;
- }
- else if (key == 'r' || key == 'R')
- {
+   break;
+   
+   case 'r':
+   case 'R':
    Reset();
- }
+   break;
+   
+   default:
+   break;
+  }
 }
 
 void Reset()
@@ -92,7 +103,7 @@ void Reset()
   do
   {
     speedConstant = (int)random(-10, 10);
-  } while (speedConstant >= -1 && speedConstant <= 1);
+  } while (speedConstant >= -1 && speedConstant <= 1); //We dont want the speed constant to be too boring :P
   
   hue = (int)random(0,256);
   

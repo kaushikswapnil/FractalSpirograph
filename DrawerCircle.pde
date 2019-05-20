@@ -36,7 +36,7 @@ class DrawerCircle
    {
       float radius = m_Radius * radiusMultiplier;
       
-      float posX= 0;
+      float posX = 0;
       switch (childCreationStrategy)
       {
         default:
@@ -67,26 +67,7 @@ class DrawerCircle
    {
      if (m_Parent != null)
      {
-       float radiusSum = 0;//m_Radius + m_Parent.m_Radius;
-       
-       switch (childCreationStrategy)
-      {
-        default:
-        case 0 :
-        radiusSum = m_Parent.m_Radius + m_Radius;
-        break;
-        
-        case 1:
-        radiusSum = m_Parent.m_Radius - m_Radius;
-        break;
-        
-        case 2:
-        if (m_Level % 2 == 0)
-          radiusSum = m_Parent.m_Radius + m_Radius;
-        else
-          radiusSum = m_Parent.m_Radius - m_Radius;
-        break;
-      }
+       float radiusSum = FetchResultantRadiusForChildCreationStrategy();
      
        m_Position.x = m_Parent.m_Position.x + (radiusSum* cos(m_Angle));
        m_Position.y = m_Parent.m_Position.y + (radiusSum* sin(m_Angle));
@@ -124,5 +105,34 @@ class DrawerCircle
       {
         return new PVector(m_Position.x, m_Position.y);
       }
+   }
+   
+   //Fetches the appropriate radius sum for parent and this entity
+   //based on the child creation strategy
+   //assumes parent is already present. Do not call this method if parent does not exist
+   float FetchResultantRadiusForChildCreationStrategy()
+   {
+     float radiusSum = 0;
+     
+     switch (childCreationStrategy)
+      {
+        default:
+        case 0 :
+        radiusSum = m_Parent.m_Radius + m_Radius;
+        break;
+        
+        case 1:
+        radiusSum = m_Parent.m_Radius - m_Radius;
+        break;
+        
+        case 2:
+        if (m_Level % 2 == 0)
+          radiusSum = m_Parent.m_Radius + m_Radius;
+        else
+          radiusSum = m_Parent.m_Radius - m_Radius;
+        break;
+      }
+      
+      return radiusSum;
    }
 }
